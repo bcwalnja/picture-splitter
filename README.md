@@ -1,4 +1,4 @@
-# [Picture Splitter](bcwalnja.github.io/picture-splitter)
+# [Picture Splitter](https://bcwalnja.github.io/picture-splitter)
 
 A browser-based tool for splitting one picture across US Letter pages. Images are processed locally in your browser and are never uploaded.
 
