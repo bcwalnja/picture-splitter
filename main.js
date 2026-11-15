@@ -1,6 +1,3 @@
-import JSZip from "jszip";
-import "./styles.css";
-
 const LETTER = { width: 8.5, height: 11 };
 const DPI_OPTIONS = { print: 300, ratio: 100 };
 const elements = {
@@ -180,6 +177,55 @@ function crc32(bytes) {
   return (crc ^ 0xffffffff) >>> 0;
 }
 
+function createZip(files) {
+  const encoder = new TextEncoder();
+  const localParts = [];
+  const centralParts = [];
+  let localOffset = 0;
+
+  for (const { name, data } of files) {
+    const nameBytes = encoder.encode(name);
+    const checksum = crc32(data);
+    const localHeader = new Uint8Array(30 + nameBytes.length);
+    const localView = new DataView(localHeader.buffer);
+    localView.setUint32(0, 0x04034b50, true);
+    localView.setUint16(4, 20, true);
+    localView.setUint32(14, checksum, true);
+    localView.setUint32(18, data.length, true);
+    localView.setUint32(22, data.length, true);
+    localView.setUint16(26, nameBytes.length, true);
+    localHeader.set(nameBytes, 30);
+    localParts.push(localHeader, data);
+
+    const centralHeader = new Uint8Array(46 + nameBytes.length);
+    const centralView = new DataView(centralHeader.buffer);
+    centralView.setUint32(0, 0x02014b50, true);
+    centralView.setUint16(4, 20, true);
+    centralView.setUint16(6, 20, true);
+    centralView.setUint32(16, checksum, true);
+    centralView.setUint32(20, data.length, true);
+    centralView.setUint32(24, data.length, true);
+    centralView.setUint16(28, nameBytes.length, true);
+    centralView.setUint32(42, localOffset, true);
+    centralHeader.set(nameBytes, 46);
+    centralParts.push(centralHeader);
+    localOffset += localHeader.length + data.length;
+  }
+
+  const centralDirectory = new Blob(centralParts);
+  const endRecord = new Uint8Array(22);
+  const endView = new DataView(endRecord.buffer);
+  endView.setUint32(0, 0x06054b50, true);
+  endView.setUint16(8, files.length, true);
+  endView.setUint16(10, files.length, true);
+  endView.setUint32(12, centralDirectory.size, true);
+  endView.setUint32(16, localOffset, true);
+
+  return new Blob([...localParts, ...centralParts, endRecord], {
+    type: "application/zip",
+  });
+}
+
 function createPngChunk(type, data) {
   const typeBytes = new TextEncoder().encode(type);
   const chunk = new Uint8Array(12 + data.length);
@@ -266,7 +312,7 @@ function downloadBlob(blob, filename) {
 async function createDownload() {
   const settings = getSettings();
   const fit = getFit(state.image.naturalWidth, state.image.naturalHeight, settings);
-  const zip = new JSZip();
+  const files = [];
 
   elements.downloadButton.disabled = true;
   elements.downloadButton.classList.add("working");
@@ -278,15 +324,14 @@ async function createDownload() {
         const pageImage = await renderPage(settings, fit, column, row);
         const pageNumber = String(row * settings.columns + column + 1).padStart(2, "0");
         const filename = `page-${pageNumber}-row-${row + 1}-column-${column + 1}.png`;
-        zip.file(filename, pageImage);
+        files.push({
+          name: filename,
+          data: new Uint8Array(await pageImage.arrayBuffer()),
+        });
       }
     }
 
-    const archive = await zip.generateAsync({
-      type: "blob",
-      compression: "DEFLATE",
-      compressionOptions: { level: 6 },
-    });
+    const archive = createZip(files);
     const dpiLabel = settings.dpi === 300 ? "300dpi" : "aspect-ratio";
     downloadBlob(archive, `picture-splitter-${settings.columns}x${settings.rows}-${dpiLabel}.zip`);
     setStatus("Your page set is ready.");
