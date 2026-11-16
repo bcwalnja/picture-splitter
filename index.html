@@ -1,173 +1,176 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Split a picture into precisely sized US Letter pages and download a print-ready set."
-    />
+    <meta name="description"
+        content="Split a picture into precisely sized US Letter pages and download a print-ready set." />
     <meta name="color-scheme" content="light dark" />
     <title>Picture Splitter</title>
     <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
+</head>
+
+<body>
     <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
-      Dark mode
+        Dark mode
     </button>
     <div class="app-shell">
-      <main>
-        <section class="intro">
-          <h1>Split a picture into a poster print</h1>
-          <p class="intro-copy">
-            Select an image, page layout, and orientation. Download individual
-            US Letter pages as a ZIP file.
-          </p>
-        </section>
+        <main>
+            <section class="intro">
+                <h1>Picture Splitter</h1>
+                <h2>
+                    Select an image, page layout, and orientation.
+                    Choose Poster Print options to split the picture.
+                    Download individual US Letter pages as a ZIP file.
+                </h2>
+            </section>
 
-        <section class="workspace" aria-label="Picture splitter">
-          <div class="controls-panel">
-            
-            <label class="upload-zone" id="drop-zone" for="image-input">
-              <input id="image-input" type="file" accept="image/*" />
-              <span class="upload-icon" aria-hidden="true">
-                <svg viewBox="0 0 32 32" fill="none">
-                  <path d="M16 21V5m0 0-6 6m6-6 6 6" />
-                  <path d="M6 19v7h20v-7" />
-                </svg>
-              </span>
-              <span class="upload-title">Drop an image here</span>
-              <span class="upload-subtitle">or <span>browse files</span></span>
-            </label>
-            <div class="image-summary" id="image-summary" hidden>
-              <span class="image-summary-icon" aria-hidden="true">IMG</span>
-              <span class="image-summary-text">
-                <strong id="image-name"></strong>
-                <small id="image-dimensions"></small>
-              </span>
-              <button class="text-button" id="remove-image" type="button" aria-label="Remove image">
-                Remove
-              </button>
-            </div>
+            <section class="workspace" aria-label="Picture splitter">
+                <div class="controls-panel">
+                    <label class="upload-zone" id="drop-zone" for="image-input">
+                        <input id="image-input" type="file" accept="image/*" />
+                        <span class="upload-icon" aria-hidden="true">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M16 21V5m0 0-6 6m6-6 6 6" />
+                                <path d="M6 19v7h20v-7" />
+                            </svg>
+                        </span>
+                        <span class="upload-title">Drop an image here</span>
+                        <span class="upload-subtitle">or <span>browse files</span></span>
+                    </label>
+                    <div class="image-summary" id="image-summary" hidden>
+                        <span class="image-summary-icon" aria-hidden="true">IMG</span>
+                        <span class="image-summary-text">
+                            <strong id="image-name"></strong>
+                            <small id="image-dimensions"></small>
+                        </span>
+                        <button class="text-button" id="remove-image" type="button" aria-label="Remove image">
+                            Remove
+                        </button>
+                    </div>
 
-            <div class="settings-section">
-              <div class="options-panel">
-                <h2 class="options-title">Output Options</h2>
-                <fieldset class="setting-group">
-                  <legend>Pages across × down</legend>
-                  <div class="choice-row grid-choices">
-                    <label class="choice">
-                      <input type="radio" name="grid" value="1x2" />
-                      <span>1 × 2</span>
-                    </label>
-                    <label class="choice">
-                      <input type="radio" name="grid" value="2x1" />
-                      <span>2 × 1</span>
-                    </label>
-                    <label class="choice">
-                      <input type="radio" name="grid" value="2x2" checked />
-                      <span>2 × 2</span>
-                    </label>
-                    <label class="choice">
-                      <input type="radio" name="grid" value="2x3" />
-                      <span>2 × 3</span>
-                    </label>
-                    <label class="choice">
-                      <input type="radio" name="grid" value="3x3" />
-                      <span>3 × 3</span>
-                    </label>
-                  </div>
-                </fieldset>
+                    <div class="settings-section">
+                        <div class="options-panel">
+                            <h2 class="options-title">Output Options</h2>
+                            <fieldset class="setting-group">
+                                <legend>Pages across × down</legend>
+                                <div class="choice-row grid-choices">
+                                    <label class="choice">
+                                        <input type="radio" name="grid" value="1x2" />
+                                        <span>1 × 2</span>
+                                    </label>
+                                    <label class="choice">
+                                        <input type="radio" name="grid" value="2x1" />
+                                        <span>2 × 1</span>
+                                    </label>
+                                    <label class="choice">
+                                        <input type="radio" name="grid" value="2x2" checked />
+                                        <span>2 × 2</span>
+                                    </label>
+                                    <label class="choice">
+                                        <input type="radio" name="grid" value="2x3" />
+                                        <span>2 × 3</span>
+                                    </label>
+                                    <label class="choice">
+                                        <input type="radio" name="grid" value="3x3" />
+                                        <span>3 × 3</span>
+                                    </label>
+                                </div>
+                            </fieldset>
 
-                <fieldset class="setting-group">
-                  <legend>Page orientation</legend>
-                  <div class="choice-row orientation-choices">
-                    <label class="choice">
-                      <input type="radio" name="orientation" value="portrait" checked />
-                      <span class="orientation-label">
-                        <span class="orientation-icon portrait" aria-hidden="true"></span>
-                        Portrait
-                      </span>
-                    </label>
-                    <label class="choice">
-                      <input type="radio" name="orientation" value="landscape" />
-                      <span class="orientation-label">
-                        <span class="orientation-icon landscape" aria-hidden="true"></span>
-                        Landscape
-                      </span>
-                    </label>
-                  </div>
-                </fieldset>
+                            <fieldset class="setting-group">
+                                <legend>Page orientation</legend>
+                                <div class="choice-row orientation-choices">
+                                    <label class="choice">
+                                        <input type="radio" name="orientation" value="portrait" checked />
+                                        <span class="orientation-label">
+                                            <span class="orientation-icon portrait" aria-hidden="true"></span>
+                                            Portrait
+                                        </span>
+                                    </label>
+                                    <label class="choice">
+                                        <input type="radio" name="orientation" value="landscape" />
+                                        <span class="orientation-label">
+                                            <span class="orientation-icon landscape" aria-hidden="true"></span>
+                                            Landscape
+                                        </span>
+                                    </label>
+                                </div>
+                            </fieldset>
 
-                <fieldset class="setting-group">
-                  <legend>Image scaling</legend>
-                  <div class="quality-options">
-                    <label class="quality-choice">
-                      <input type="radio" name="scaling" value="fit" checked />
-                      <span class="quality-copy">
-                        <strong>Scale to fit poster <span class="recommended">RECOMMENDED</span></strong>
-                        <small>Fills the selected grid’s limiting dimension · 300 DPI output</small>
-                      </span>
-                      <span class="radio-mark" aria-hidden="true"></span>
-                    </label>
-                    <label class="quality-choice">
-                      <input type="radio" name="scaling" value="native" />
-                      <span class="quality-copy">
-                        <strong>Keep original size</strong>
-                        <small>Preserves pixels and embedded DPI (96 DPI if absent); adds pages up to 3 × 3</small>
-                      </span>
-                      <span class="radio-mark" aria-hidden="true"></span>
-                    </label>
-                  </div>
-                </fieldset>
-              </div>
-            </div>
+                            <fieldset class="setting-group">
+                                <legend>Image scaling</legend>
+                                <div class="quality-options">
+                                    <label class="quality-choice">
+                                        <input type="radio" name="scaling" value="fit" checked />
+                                        <span class="quality-copy">
+                                            <strong>Scale to fit poster</strong>
+                                            <small>Fills the selected grid’s limiting dimension · 300 DPI output</small>
+                                        </span>
+                                        <span class="radio-mark" aria-hidden="true"></span>
+                                    </label>
+                                    <label class="quality-choice">
+                                        <input type="radio" name="scaling" value="native" />
+                                        <span class="quality-copy">
+                                            <strong>Keep original size</strong>
+                                            <small>Preserves pixels and embedded DPI (96 DPI if absent); adds pages up
+                                                to 3 × 3</small>
+                                        </span>
+                                        <span class="radio-mark" aria-hidden="true"></span>
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
 
-          </div>
-
-          <section class="preview-panel" aria-label="Page layout preview">
-            <div class="download-area">
-              <button class="download-button" id="download-button" type="button" disabled>
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3" />
-                </svg>
-                <span>Download Output ZIP File</span>
-                <span class="download-count" id="download-count" hidden>4 PNGs · ZIP</span>
-              </button>
-              <p class="status-message" id="status-message" role="status" aria-live="polite"></p>
-            </div>
-            <div hidden>
-              <span id="preview-title">2 × 2 pages</span>
-              <span id="preview-page-count">4 pages</span>
-              <span id="fit-note">The whole picture fits, aligned to the top left.</span>
-            </div>
-            <div class="preview-stage" id="preview-stage">
-              <div class="empty-preview" id="empty-preview">
-                <div class="empty-stack" aria-hidden="true">
-                  <span></span><span></span><span></span>
-                  <svg viewBox="0 0 48 48" fill="none">
-                    <rect x="8" y="8" width="32" height="32" rx="4" />
-                    <circle cx="19" cy="19" r="3" />
-                    <path d="m10 34 9-9 7 7 6-6 7 6" />
-                  </svg>
                 </div>
-                <strong>Your page preview will show up here</strong>
-                <span>Add a picture to see how it fits.</span>
-              </div>
-              <canvas id="preview-canvas" aria-label="Preview of your picture split across pages" hidden></canvas>
-            </div>
-            <div class="privacy-note">
-              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <rect x="4" y="9" width="12" height="8" rx="2" />
-                <path d="M7 9V6a3 3 0 0 1 6 0v3m-3 3v2" />
-              </svg>
-            </div>
-          </section>
-        </section>
-      </main>
+
+                <section class="preview-panel" aria-label="Page layout preview">
+                    <div class="download-area">
+                        <button class="download-button" id="download-button" type="button" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3" />
+                            </svg>
+                            <span>Download Output ZIP File</span>
+                            <span class="download-count" id="download-count" hidden>4 PNGs · ZIP</span>
+                        </button>
+                        <p class="status-message" id="status-message" role="status" aria-live="polite"></p>
+                    </div>
+                    <div hidden>
+                        <span id="preview-title">2 × 2 pages</span>
+                        <span id="preview-page-count">4 pages</span>
+                        <span id="fit-note">The whole picture fits, aligned to the top left.</span>
+                    </div>
+                    <div class="preview-stage" id="preview-stage">
+                        <div class="empty-preview" id="empty-preview">
+                            <div class="empty-stack" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                                <svg viewBox="0 0 48 48" fill="none">
+                                    <rect x="8" y="8" width="32" height="32" rx="4" />
+                                    <circle cx="19" cy="19" r="3" />
+                                    <path d="m10 34 9-9 7 7 6-6 7 6" />
+                                </svg>
+                            </div>
+                            <strong>Your page preview will show up here</strong>
+                            <span>Add a picture to see how it fits.</span>
+                        </div>
+                        <canvas id="preview-canvas" aria-label="Preview of your picture split across pages"
+                            hidden></canvas>
+                    </div>
+                    <div class="privacy-note">
+                        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                            <rect x="4" y="9" width="12" height="8" rx="2" />
+                            <path d="M7 9V6a3 3 0 0 1 6 0v3m-3 3v2" />
+                        </svg>
+                    </div>
+                </section>
+            </section>
+        </main>
 
     </div>
 
     <script src="./main.js" defer></script>
-  </body>
+</body>
+
 </html>
