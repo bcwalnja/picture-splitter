@@ -9,12 +9,14 @@ Open `index.html` directly in a browser, or press F5 in VS Code to launch it wit
 ## Using the app
 
 1. Choose or drop an image.
-2. Select the number of pages across and down, page orientation, and output quality.
+2. Select the number of pages across and down, page orientation, and image scaling mode.
 3. Download a ZIP containing one PNG per page.
 
-The picture is scaled uniformly to fit the complete page grid, aligned to its top-left corner, and never cropped. Any unused area to the right or bottom remains white.
+The **Scale to fit poster** option scales the complete picture uniformly to fill the selected grid's limiting dimension, aligned to the top-left corner. It exports pages at 300 DPI.
 
-The print-ready option exports pages at 300 DPI (2550 × 3300 pixels for portrait, or 3300 × 2550 for landscape) and embeds the corresponding resolution in each PNG. The aspect-ratio option exports at 100 pixels per inch and is intended for choosing the print size in your print dialog.
+The **Keep original size** option preserves the source pixels and DPI, leaving unused space to the right and bottom white. PNG, JPEG, and WebP DPI metadata is used when available; images without readable DPI metadata use 96 DPI. The app expands the selected grid as needed, up to 3 × 3 pages, and blocks downloads that would need more pages rather than cropping the image. All output pages have white backgrounds and include their DPI in the PNG metadata.
+
+Use the **Dark mode** button in the header to switch the interface theme.
 
 ## GitHub Pages
 
