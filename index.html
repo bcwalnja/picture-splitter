@@ -37,7 +37,6 @@
               </span>
               <span class="upload-title">Drop an image here</span>
               <span class="upload-subtitle">or <span>browse files</span></span>
-              <span class="file-types">JPG, PNG, WEBP, and more</span>
             </label>
             <div class="image-summary" id="image-summary" hidden>
               <span class="image-summary-icon" aria-hidden="true">IMG</span>
@@ -52,12 +51,17 @@
 
             <div class="settings-section">
               <div class="options-panel">
+                <h2 class="options-title">Output Options</h2>
                 <fieldset class="setting-group">
                   <legend>Pages across × down</legend>
                   <div class="choice-row grid-choices">
                     <label class="choice">
                       <input type="radio" name="grid" value="1x2" />
                       <span>1 × 2</span>
+                    </label>
+                    <label class="choice">
+                      <input type="radio" name="grid" value="2x1" />
+                      <span>2 × 1</span>
                     </label>
                     <label class="choice">
                       <input type="radio" name="grid" value="2x2" checked />
@@ -118,30 +122,23 @@
               </div>
             </div>
 
+          </div>
+
+          <section class="preview-panel" aria-label="Page layout preview">
             <div class="download-area">
               <button class="download-button" id="download-button" type="button" disabled>
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3" />
                 </svg>
-                <span>Download pages</span>
-                <span class="download-count" id="download-count">4 PNGs · ZIP</span>
+                <span>Download Output ZIP File</span>
+                <span class="download-count" id="download-count" hidden>4 PNGs · ZIP</span>
               </button>
-              <p class="download-note">White page backgrounds · ZIP file of individual PNG pages</p>
               <p class="status-message" id="status-message" role="status" aria-live="polite"></p>
             </div>
-          </div>
-
-          <section class="preview-panel" aria-label="Page layout preview">
-            <div class="preview-header">
-              <div>
-                <p class="eyebrow">YOUR LAYOUT</p>
-                <h2 id="preview-title">2 × 2 pages</h2>
-                <div class="preview-summary">
-                  <span id="preview-page-count">4 pages</span>
-                  <span id="fit-note">The whole picture fits, aligned to the top left.</span>
-                </div>
-              </div>
-              <span class="page-size"><span class="page-size-dot"></span> US Letter · 8.5 × 11 in</span>
+            <div hidden>
+              <span id="preview-title">2 × 2 pages</span>
+              <span id="preview-page-count">4 pages</span>
+              <span id="fit-note">The whole picture fits, aligned to the top left.</span>
             </div>
             <div class="preview-stage" id="preview-stage">
               <div class="empty-preview" id="empty-preview">
@@ -163,7 +160,6 @@
                 <rect x="4" y="9" width="12" height="8" rx="2" />
                 <path d="M7 9V6a3 3 0 0 1 6 0v3m-3 3v2" />
               </svg>
-              <span>Private by design. Your image never leaves your browser.</span>
             </div>
           </section>
         </section>

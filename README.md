@@ -9,7 +9,7 @@ Open `index.html` directly in a browser, or press F5 in VS Code to launch it wit
 ## Using the app
 
 1. Choose or drop an image.
-2. Select the number of pages across and down, page orientation, and image scaling mode.
+2. Select the number of pages across and down (1 × 2, 2 × 1, 2 × 2, 2 × 3, or 3 × 3), page orientation, and image scaling mode.
 3. Download a ZIP containing one PNG per page.
 
 The **Scale to fit poster** option scales the complete picture uniformly to fill the selected grid's limiting dimension, aligned to the top-left corner. It exports pages at 300 DPI.
