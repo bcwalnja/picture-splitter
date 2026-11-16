@@ -608,10 +608,23 @@ document.querySelectorAll('input[name="grid"], input[name="orientation"], input[
   .forEach((input) => input.addEventListener("change", updatePreview));
 
 elements.downloadButton.addEventListener("click", createDownload);
-elements.themeToggle.addEventListener("click", () => {
-  const isDark = document.documentElement.dataset.theme !== "dark";
-  document.documentElement.dataset.theme = isDark ? "dark" : "light";
+const themePreference = window.matchMedia("(prefers-color-scheme: dark)");
+let manuallySelectedTheme = false;
+
+function setTheme(theme) {
+  const isDark = theme === "dark";
+  document.documentElement.dataset.theme = theme;
   elements.themeToggle.textContent = isDark ? "Light mode" : "Dark mode";
   elements.themeToggle.setAttribute("aria-pressed", String(isDark));
+}
+
+setTheme(themePreference.matches ? "dark" : "light");
+themePreference.addEventListener("change", (event) => {
+  if (!manuallySelectedTheme) setTheme(event.matches ? "dark" : "light");
+});
+
+elements.themeToggle.addEventListener("click", () => {
+  manuallySelectedTheme = true;
+  setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
 });
 window.addEventListener("resize", drawPreview);

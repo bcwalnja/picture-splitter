@@ -12,4 +12,6 @@ The `Scale to fit poster` option scales the complete picture uniformly to fill t
 
 The `Keep original size` option preserves the source pixels and DPI, leaving unused space to the right and bottom white. PNG, JPEG, and WebP DPI metadata is used when available; images without readable DPI metadata use 96 DPI. The app expands the selected grid as needed, up to 3 × 3 pages. Images that the original size exceeds 3 x 3 are not handled at this time. I might decide to change that in the future.
 
+The interface follows your browser's light or dark color-scheme setting by default. The theme button switches themes for the current page view only; reloading returns to your browser setting.
+
 [Picture Splitter](https://bcwalnja.github.io/picture-splitter) is hosted via a GitHub page.
